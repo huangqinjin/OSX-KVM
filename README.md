@@ -146,7 +146,7 @@ processors work just fine (even for macOS Sonoma).
 * Convert the downloaded `BaseSystem.dmg` file into the `BaseSystem.img` file.
 
   ```
-  dmg2img -i BaseSystem.dmg BaseSystem.img
+  qemu-img convert BaseSystem.dmg BaseSystem.img
   ```
 
 * Create a virtual HDD image where macOS will be installed. If you change the
@@ -180,6 +180,14 @@ processors work just fine (even for macOS Sonoma).
 - Go ahead, and install macOS 🙌
 
 - (OPTIONAL) Use this macOS VM disk with libvirt (virt-manager / virsh stuff).
+
+  - Copy images.
+    ```
+    cp OVMF_CODE.fd /usr/share/qemu/ovmf-x86_64-mac-code.bin
+    cp mac_hdd_ng.img /var/lib/libvirt/images/macOS.qcow2
+    cp OpenCore/OpenCore.qcow2 /var/lib/libvirt/images/macOS-BootLoader.qcow2
+    cp OVMF_VARS-1920x1080.fd /var/lib/libvirt/qemu/nvram/macOS_VARS.fd
+    ```
 
   - Edit `macOS-libvirt-Catalina.xml` file and change the various file paths (search
     for `CHANGEME` strings in that file). The following command should do the
